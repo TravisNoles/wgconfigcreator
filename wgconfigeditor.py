@@ -23,8 +23,6 @@ class AppConfig():
         self.config.add_section('endpoints')
         self.config.add_section('system')
 
-
-
 class WGConfig():
     def __init__(self):
         self.filename = 'test'
