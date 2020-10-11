@@ -24,11 +24,17 @@ class AppConfig():
         self.config.add_section('system')
 
 class WGConfig():
-    def __init__(self):
-        self.filename = 'test'
+    def __init__(self, interfacename):
+        self.filename = interfacename + '.conf'
+
+        self.section_total = 0
+        self.section_locations = []
+
         self.publickey = ""
         self.privatekey = ""
         self.config = configparser.ConfigParser()
+        #self.gen_wireguard_keys()
+
 
     def get_section(self, name):
         """Get section and the line number of the section. """
@@ -37,6 +43,7 @@ class WGConfig():
             while line:
                 if line.strip() == '[' + name + ']':
                     self.sections.append(line.strip())
+                    self.section_locations.append(line.index())
                 line = wgconfig.readline()
 
     def get_peers(self):
@@ -73,6 +80,33 @@ class WGConfig():
             configfile.write('PrivateKey = ' + ipaddress + '\n')
             configfile.write('ListenPort = ' + str(random.randint(8000,38888)) + '\n')
 
+    def create_file(self, interface_name):
+        """Creates new wireguard file with new pub/private keys. """
+        with open(self.filename, 'w') as configfile:
+            self.gen_wireguard_keys()
+
+
+class ConfigFile():
+    def __init__(self, filename):
+        self.filename = filename
+        self.config = configparser.ConfigParser()
+        self.wireguard
+
+    def add_wireguard_interface(self, interface):
+        self.config['']
+
+    def new(self):
+        """ Create new local config file for tracking wireguard configs. """
+        with open(self.filename, 'w') as configfile:
+            configfile.write('')
+
+    def save(self):
+        """ Save changes to config. ""
+        
+
+    def append_line(self, line):
+        """ Append line to file. """
+        with open(self.filename)
 
 
 

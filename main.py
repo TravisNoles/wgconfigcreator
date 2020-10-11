@@ -5,9 +5,11 @@ from wgconfigeditor import WGConfig
 class WireguardServer(object):
     def new(self, ipaddress, interface_name):
         """ Create new Wireguard Server config. """
-        new_wg = WGConfig()
-        new_wg.gen_wireguard_keys()
-        new_wg.add_server_interface(new_wg.publickey, ipaddress)
+        new_wg = WGConfig(interface_name)
+        new_wg.create_file()
+        print(new_wg.section_locations)
+        #new_wg.create_file(interface_name)
+        #new_wg.add_server_interface('')
 
 
 class WireguardClient(object):
